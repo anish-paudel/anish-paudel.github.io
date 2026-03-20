@@ -260,7 +260,6 @@ export default function Contact() {
               <h3 className="text-white font-semibold mb-6 text-lg">Connect Online</h3>
               <div className="space-y-4">
                 {socialLinks.map((social) => {
-                  const Icon = social.icon;
                   return (
                     <a
                       key={social.name}
@@ -273,8 +272,7 @@ export default function Contact() {
                         <div 
                           className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110"
                           style={{ backgroundColor: `${social.color}20` }}
-                        >
-                          <Icon size={24} style={{ color: social.color }} />
+                        >               
                         </div>
                         <div>
                           <div className="text-white font-medium">{social.name}</div>

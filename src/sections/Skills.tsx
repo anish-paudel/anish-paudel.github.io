@@ -15,12 +15,13 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 interface Skill {
-  icon: React.ElementType;
+  icon:  React.ElementType;   // <-- important
   title: string;
   description: string;
   level: number;
-  category: 'Core' | 'Integration' | 'DevOps';
+  category:  'Core' | 'Integration' | 'DevOps';
   color: string;
 }
 
@@ -252,7 +253,6 @@ export default function Skills() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6"
         >
           {filteredSkills.map((skill, index) => {
-            const Icon = skill.icon;
             const isHovered = hoveredSkill === skill.title;
             
             return (
@@ -289,13 +289,7 @@ export default function Skills() {
                       backgroundColor: `${skill.color}15`,
                     }}
                   >
-                    <Icon 
-                      size={24} 
-                      className="transition-colors duration-300"
-                      style={{ color: skill.color }}
-                    />
                   </div>
-
                   {/* Content */}
                   <h3 className="text-lg lg:text-xl font-semibold text-white mb-2 group-hover:text-[#2e5bff] transition-colors">
                     {skill.title}
@@ -382,7 +376,6 @@ export default function Skills() {
               className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
               style={{ backgroundColor: `${selectedSkill.color}20` }}
             >
-              <selectedSkill.icon size={32} style={{ color: selectedSkill.color }} />
             </div>
 
             <h3 className="text-2xl font-bold text-white mb-2">{selectedSkill.title}</h3>

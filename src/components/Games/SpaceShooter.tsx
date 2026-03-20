@@ -311,7 +311,7 @@ interface NeonOverdriveGameProps {
 export default function NeonOverdriveGame({ isOpen, onClose }: NeonOverdriveGameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
+const animationRef = useRef<number | null>(null);
   
   // Game state refs (using refs for mutable game state to avoid re-renders)
   const gameStateRef = useRef<GameState>('MENU');
@@ -334,7 +334,7 @@ export default function NeonOverdriveGame({ isOpen, onClose }: NeonOverdriveGame
   const [gameState, setGameState] = useState<GameState>('MENU');
   const [score, setScore] = useState(0);
   const [health, setHealth] = useState(100);
-  const [speed, setSpeed] = useState(CONFIG.baseSpeed);
+  const [speed, _setSpeed] = useState(CONFIG.baseSpeed);
 
   // Initialize canvas and game
   const initGame = useCallback(() => {
@@ -394,8 +394,10 @@ export default function NeonOverdriveGame({ isOpen, onClose }: NeonOverdriveGame
   }, []);
 
   // Game update logic
-  const update = useCallback((deltaTime: number) => {
+  const update = useCallback((_deltaTime: number) => {
     if (gameStateRef.current !== 'PLAYING') return;
+    const [_speed, setSpeed] = useState<number>(0);
+const speedRef = useRef<number>(0);
 
     frameRef.current++;
     scoreRef.current += speedRef.current * 0.1;
@@ -566,13 +568,14 @@ export default function NeonOverdriveGame({ isOpen, onClose }: NeonOverdriveGame
   }, []);
 
   // Reset game
-  const resetGame = useCallback(() => {
-    gameStateRef.current = 'MENU';
-    setGameState('MENU');
-  }, []);
+  // const resetGame = useCallback(() => {
+  //   gameStateRef.current = 'MENU';
+  //   setGameState('MENU');
+  // }, []);
 
   // Input handlers
   useEffect(() => {
+    const speedRef = useRef<number>(CONFIG.baseSpeed);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (gameStateRef.current !== 'PLAYING') return;
       
