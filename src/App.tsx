@@ -1,9 +1,11 @@
 import { useEffect, Suspense, lazy } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initLenis, destroyLenis } from './lib/lenis';
 
 // Components
 import Navigation from './components/Navigation';
+import ScrollProgress from './components/ScrollProgress';
 import Footer from './components/Footer';
 
 // Sections
@@ -30,19 +32,33 @@ function BackgroundFallback() {
 
 function App() {
   useEffect(() => {
-    // Initialize smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
-
-    // Refresh ScrollTrigger on load
-    ScrollTrigger.refresh();
-
-    // Handle reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     if (prefersReducedMotion) {
-      gsap.globalTimeline.timeScale(0);
+      // Fast-forward animations instead of freezing them (timeScale(0) left
+      // entrance animations stuck at their hidden "from" state)
+      gsap.globalTimeline.timeScale(100);
+      ScrollTrigger.refresh();
+      return () => {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      };
     }
 
+    // Lenis smooth scrolling driven by GSAP's ticker, synced with ScrollTrigger
+    const lenis = initLenis();
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const raf = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    ScrollTrigger.refresh();
+
     return () => {
+      gsap.ticker.remove(raf);
+      destroyLenis();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -56,6 +72,9 @@ function App() {
 
       {/* Grain overlay for filmic quality */}
       <div className="grain-overlay" />
+
+      {/* Scroll progress indicator */}
+      <ScrollProgress />
 
       {/* Navigation */}
       <Navigation />

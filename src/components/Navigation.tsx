@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Gamepad2 } from 'lucide-react';
 import gsap from 'gsap';
 import GameDisplay from './GameDisplay';
+import { scrollToSection } from '../lib/lenis';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -12,6 +13,7 @@ const navLinks = [
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('#home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isGameDialogOpen, setIsGameDialogOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
@@ -25,6 +27,26 @@ export default function Navigation() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = navLinks
+      .map(link => document.querySelector(link.href))
+      .filter((el): el is Element => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+
+    sections.forEach(section => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -58,11 +80,7 @@ export default function Navigation() {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-    
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToSection(href);
   };
 
   const handleGameClick = () => {
@@ -111,10 +129,16 @@ export default function Navigation() {
                   ref={(el) => { linksRef.current[index] = el; }}
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
-                  className="relative text-xs font-semibold uppercase tracking-[2px] text-white/60 hover:text-white transition-all duration-300 group"
+                  className={`relative text-xs font-semibold uppercase tracking-[2px] transition-all duration-300 group ${
+                    activeSection === link.href ? 'text-white' : 'text-white/60 hover:text-white'
+                  }`}
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#2e5bff] transition-all duration-300 group-hover:w-full" />
+                  <span
+                    className={`absolute -bottom-1 left-0 h-[1px] bg-[#2e5bff] transition-all duration-300 group-hover:w-full ${
+                      activeSection === link.href ? 'w-full' : 'w-0'
+                    }`}
+                  />
                 </a>
               ))}
               

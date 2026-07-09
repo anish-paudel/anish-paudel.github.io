@@ -11,7 +11,9 @@ import {
   BookOpen, 
   ExternalLink,
   Code2,
-  Database
+  Database,
+  CreditCard,
+  MailCheck
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,6 +58,22 @@ const projects = [
     icon: Layers,
     color: '#ff9f43',
     tags: ['BC 2026', 'Extensions', 'Reports']
+  },
+  {
+    type: 'LS Central',
+    title: 'PAX A35 EFT Integration in LS Central POS',
+    description: 'Integrated the PAX A35 EFT payment terminal with LS Central POS using AL control add-ins, enabling secure card payments with real-time transaction status at the till.',
+    icon: CreditCard,
+    color: '#2ee6a8',
+    tags: ['Control Add-in', 'EFT Payment', 'LS Central POS']
+  },
+  {
+    type: 'Automation',
+    title: 'Cloudspace Mail Automation & Upgrade',
+    description: 'Built auto-generated email workflows for Cloudspace, eliminating manual notifications, and carried out the platform upgrade to the latest version.',
+    icon: MailCheck,
+    color: '#ff5e7d',
+    tags: ['Email Automation', 'Upgrade', 'Workflows']
   },
   {
     type: '.NET',

@@ -10,6 +10,11 @@ function createSeededRandom(seed: number) {
   };
 }
 
+// Lower scene complexity on touch / small-screen devices
+const isLowPower =
+  typeof window !== 'undefined' &&
+  (window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768);
+
 // Advanced shader material for particles with glow and distortion
 const particleVertexShader = `
   uniform float uTime;
@@ -79,7 +84,7 @@ const particleFragmentShader = `
 function AdvancedParticles() {
   const pointsRef = useRef<THREE.Points>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const particleCount = 200;
+  const particleCount = isLowPower ? 100 : 200;
   
   // Use seeded random for deterministic values
   const [positions, scales, randoms] = useMemo(() => {
@@ -336,7 +341,7 @@ function AdvancedWavePlane() {
       position={[0, -4, -8]}
       scale={[2, 2, 1]}
     >
-      <planeGeometry args={[30, 30, 128, 128]} />
+      <planeGeometry args={[30, 30, isLowPower ? 48 : 96, isLowPower ? 48 : 96]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
@@ -356,7 +361,7 @@ function NeuralNetwork() {
   const mouseRef = useRef({ x: 0, y: 0 });
   const lineGeoRef = useRef<THREE.BufferGeometry | null>(null);
   
-  const nodeCount = 30;
+  const nodeCount = isLowPower ? 18 : 30;
   
   const nodePositions = useMemo(() => {
     const rand = createSeededRandom(54321);
@@ -475,7 +480,7 @@ function FloatingShapes() {
   const groupRef = useRef<THREE.Group>(null);
   const shapes = useMemo(() => {
     const rand = createSeededRandom(99999);
-    return Array.from({ length: 15 }, () => ({
+    return Array.from({ length: isLowPower ? 7 : 15 }, () => ({
       position: [(rand() - 0.5) * 20, (rand() - 0.5) * 15, (rand() - 0.5) * 10] as [number, number, number],
       rotation: [rand() * Math.PI, rand() * Math.PI, 0] as [number, number, number],
       scale: 0.5 + rand() * 1,
@@ -501,12 +506,13 @@ function FloatingShapes() {
           {shape.type === 0 ? <icosahedronGeometry args={[0.5, 0]} /> :
            shape.type === 1 ? <torusGeometry args={[0.4, 0.15, 8, 20]} /> :
            <octahedronGeometry args={[0.5, 0]} />}
-          <meshPhysicalMaterial
+          {/* transmission forced an extra full-scene render pass per frame */}
+          <meshStandardMaterial
             color={0x2e5bff}
-            metalness={0.1}
-            roughness={0.1}
-            transmission={0.6}
-            thickness={0.5}
+            metalness={0.4}
+            roughness={0.2}
+            emissive={0x14286e}
+            emissiveIntensity={0.5}
             transparent
             opacity={0.3}
             side={THREE.DoubleSide}
@@ -633,9 +639,9 @@ export default function AdvancedBackground() {
       <Suspense fallback={<Loader />}>
         <Canvas
           camera={{ position: [0, 0, 12], fov: 60 }}
-          dpr={[1, 2]}
-          gl={{ 
-            antialias: true, 
+          dpr={[1, isLowPower ? 1.25 : 1.5]}
+          gl={{
+            antialias: false,
             alpha: true,
             powerPreference: 'high-performance',
             stencil: false,
