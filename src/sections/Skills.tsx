@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Boxes, 
-  Database, 
-  Code2, 
-  Globe, 
+import {
+  Boxes,
+  Database,
+  Code2,
+  Globe,
   Server,
   Cpu,
   Cloud,
-  Shield,
+  ShoppingCart,
+  Smartphone,
+  CreditCard,
   X
 } from 'lucide-react';
 
@@ -28,32 +30,56 @@ interface Skill {
 const skills: Skill[] = [
   {
     icon: Boxes,
-    title: 'AL Language',
-    description: 'Building complex business logic and extensions for the D365 ecosystem with clean, maintainable code architecture.',
+    title: 'AL & C/AL',
+    description: 'Extension and per-tenant customization development across D365 Business Central and legacy Microsoft Dynamics NAV codebases.',
     level: 95,
     category: 'Core',
     color: '#2e5bff',
   },
   {
     icon: Database,
-    title: 'Business Central',
-    description: 'Expertise in SaaS and On-Premise ERP architecture, configuration, and enterprise customization.',
+    title: 'Dynamics 365 BC & NAV',
+    description: 'Large-scale NAV-to-BC upgrades (Navision 2009 R2 and NAV 2016 through BC 23–28), including RDLC & Word report development.',
     level: 92,
     category: 'Core',
     color: '#2e5bff',
   },
   {
     icon: Code2,
-    title: '.NET Core',
-    description: 'Developing robust middleware and standalone enterprise applications with C# and modern patterns.',
+    title: 'C# / .NET',
+    description: 'Full-stack .NET web applications and C#/.NET middleware services consumed by Business Central for third-party integrations.',
     level: 88,
     category: 'Core',
     color: '#00f2fe',
   },
   {
+    icon: Smartphone,
+    title: '.NET MAUI',
+    description: 'Cross-platform apps in .NET MAUI — Mini ERP and a mobile billing app linked to a live dashboard for real-time sales tracking.',
+    level: 82,
+    category: 'Core',
+    color: '#ff9f43',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'LS Central POS',
+    description: 'LS Central and LS Commerce customization, event-driven API calls and AL control add-ins for unified in-store retail experiences.',
+    level: 88,
+    category: 'Integration',
+    color: '#00f2fe',
+  },
+  {
+    icon: CreditCard,
+    title: 'EFT Payment Integration',
+    description: 'PAX A35 terminal integration in LS Central POS and a DLL-based EFT bridge for Dynamics NAV / MDFP — real-time transaction status and error handling.',
+    level: 85,
+    category: 'Integration',
+    color: '#2ee6a8',
+  },
+  {
     icon: Globe,
-    title: 'API Integrations',
-    description: 'Connecting ERP systems with OData, REST, and custom web services for seamless data flow.',
+    title: 'BC × Magento / WordPress',
+    description: 'REST & SOAP integrations between Business Central and Magento / WordPress — inventory sync, order processing and custom-field support.',
     level: 90,
     category: 'Integration',
     color: '#00f2fe',
@@ -61,32 +87,24 @@ const skills: Skill[] = [
   {
     icon: Server,
     title: 'SQL Server',
-    description: 'Database design, optimization, and complex query development for high-performance systems.',
+    description: 'Database management, query and data-handling optimization, and data migration across NAV / BC upgrade projects.',
     level: 85,
     category: 'Integration',
     color: '#00f2fe',
   },
   {
     icon: Cpu,
-    title: 'Azure DevOps',
-    description: 'CI/CD pipelines, version control strategies, and automated deployment architectures.',
+    title: 'Azure DevOps & Git',
+    description: 'Version control with Git and GitLab, and Azure DevOps for source management and release workflows across client engagements.',
     level: 82,
     category: 'DevOps',
     color: '#ff006e',
   },
   {
     icon: Cloud,
-    title: 'Cloud Services',
-    description: 'Azure cloud architecture, serverless solutions, and scalable infrastructure design.',
-    level: 78,
-    category: 'DevOps',
-    color: '#ff006e',
-  },
-  {
-    icon: Shield,
-    title: 'Security',
-    description: 'Implementing robust security practices, compliance standards, and data protection.',
-    level: 80,
+    title: 'Web & Front-end',
+    description: 'JavaScript, HTML5 and CSS for responsive web development — plus modern TypeScript/React for portfolio and internal tooling.',
+    level: 75,
     category: 'DevOps',
     color: '#ff006e',
   },
@@ -339,10 +357,10 @@ export default function Skills() {
         {/* Stats Summary */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8">
           {[
-            { label: 'Years Experience', value: '5+' },
-            { label: 'Projects Delivered', value: '50+' },
+            { label: 'Years Experience', value: '4+' },
+            { label: 'Projects Delivered', value: '30+' },
             { label: 'Technologies', value: skills.length.toString() },
-            { label: 'Certifications', value: '3' },
+            { label: 'BC Versions', value: '23–28' },
           ].map((stat) => (
             <div 
               key={stat.label}

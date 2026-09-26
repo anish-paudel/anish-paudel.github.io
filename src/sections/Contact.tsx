@@ -13,7 +13,7 @@ interface SocialLink {
 }
 
 const socialLinks: SocialLink[] = [
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/anishpaudel', icon: Linkedin, color: '#0077b5' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/anish-paudel-6123721b5/', icon: Linkedin, color: '#0077b5' },
   { name: 'GitHub', href: 'https://github.com/anish-paudel', icon: Github, color: '#ffffff' },
   { name: 'Twitter', href: 'https://twitter.com/anishpaudel', icon: Twitter, color: '#1da1f2' },
 ];
@@ -31,9 +31,11 @@ export default function Contact() {
   const fullText = `> Initializing contact protocol...
 > Loading profile data...
 > Name: Anish Paudel
-> Role: Technical Solutions Architect
+> Role: D365 BC / NAV Technical Consultant
 > Location: Pokhara, Nepal
+> Phone: +977 9826181213
 > Email: anishpaudel88@gmail.com
+> Web: anishpaudel88.com.np
 > Status: Available for global consulting
 > Ready to connect...`;
 
@@ -222,9 +224,14 @@ export default function Contact() {
                     </button>
                   </div>
 
-                  <div className="mt-3 flex items-center gap-2 text-xs text-white/40 font-mono">
-                    <Mail size={12} />
-                    <span>anishpaudel88@gmail.com</span>
+                  <div className="mt-3 flex items-center gap-2 text-xs font-mono">
+                    <Mail size={12} className="text-white/40" />
+                    <a
+                      href="mailto:anishpaudel88@gmail.com"
+                      className="text-white/60 hover:text-[#2e5bff] underline underline-offset-2 decoration-white/20 hover:decoration-[#2e5bff] transition-colors"
+                    >
+                      anishpaudel88@gmail.com
+                    </a>
                   </div>
                 </div>
               </div>

@@ -424,7 +424,7 @@ export default function Hero() {
         {/* Subtitle */}
         <div ref={subtitleRef} className="mb-12 max-w-3xl mx-auto">
           <p className="text-lg sm:text-2xl text-white/60 font-light leading-relaxed">
-            {'Technical Solutions Architect'.split('').map((char, i) => (
+            {'NAV & BC Technical Consultant'.split('').map((char, i) => (
               <span key={i} className="char inline-block" style={{ whiteSpace: char === ' ' ? 'pre' : 'normal' }}>
                 {char}
               </span>
@@ -472,9 +472,9 @@ export default function Hero() {
         {/* Stats */}
         <div className="mt-16 flex items-center justify-center gap-12">
           {[
-            { num: '5+', label: 'Years' },
-            { num: '50+', label: 'Projects' },
-            { num: '20+', label: 'Clients' }
+            { num: '4+', label: 'Years' },
+            { num: '15+', label: 'Projects' },
+            { num: '10+', label: 'Clients' }
           ].map((stat, i) => (
             <div key={i} className="text-center group cursor-default">
               <div className="text-3xl font-display text-white mb-1 group-hover:text-[#2e5bff] transition-colors duration-300 relative">

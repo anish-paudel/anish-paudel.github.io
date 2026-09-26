@@ -6,18 +6,18 @@ import { Code2, Database, Cloud, Server, Cpu, Layers, Sparkles, MapPin, Globe } 
 gsap.registerPlugin(ScrollTrigger);
 
 const competencies = [
-  { icon: Code2, text: 'Advanced AL Language Development', color: '#2e5bff' },
-  { icon: Database, text: 'D365 Business Central Customization', color: '#00f2fe' },
-  { icon: Server, text: 'Full-stack .NET & C# Integration', color: '#ff2e63' },
-  { icon: Cloud, text: 'Cloud API & Microservices', color: '#08fdd8' },
-  { icon: Cpu, text: 'SQL Server Optimization', color: '#ff9f43' },
-  { icon: Layers, text: 'ERP Architecture Design', color: '#a55eea' },
+  { icon: Code2, text: 'AL & C/AL Language Development', color: '#2e5bff' },
+  { icon: Database, text: 'NAV to BC Upgrades (v2009 – v28)', color: '#00f2fe' },
+  { icon: Server, text: 'C#/.NET Middleware & DLL Integration', color: '#ff2e63' },
+  { icon: Cloud, text: 'LS Central POS & EFT Payment Integration', color: '#08fdd8' },
+  { icon: Cpu, text: 'SQL Server & RDLC Report Development', color: '#ff9f43' },
+  { icon: Layers, text: 'Magento / WordPress BC Integration', color: '#a55eea' },
 ];
 
 const stats = [
-  { value: '5+', label: 'Years', sublabel: 'Experience' },
-  { value: '50+', label: 'Projects', sublabel: 'Delivered' },
-  { value: '20+', label: 'Global', sublabel: 'Clients' },
+  { value: '4+', label: 'Years', sublabel: 'Experience' },
+  { value: '30+', label: 'Projects', sublabel: 'Delivered' },
+  { value: '15+', label: 'Global', sublabel: 'Clients' },
 ];
 
 export default function About() {
@@ -244,19 +244,21 @@ export default function About() {
 
               <p className="content-line text-xl text-white/80 leading-relaxed font-light">
                 I am a <span className="text-white font-semibold bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] bg-clip-text text-transparent">
-                  Technical Architect
-                </span> specializing in Microsoft Dynamics 365 Business Central.
+                  Technical Consultant
+                </span> specializing in Microsoft Dynamics NAV and D365 Business Central.
               </p>
-              
+
               <p className="content-line text-lg text-white/60 leading-relaxed">
-                My approach combines deep ERP logic with modern .NET engineering, 
-                building "future-proof" extensions using the AL language.
+                Four years of hands-on ERP delivery for international retail,
+                hospitality and duty-free clients — from AL and C/AL development
+                to large-scale NAV-to-BC upgrades (Navision 2009 R2 through BC 28).
               </p>
-              
+
               <p className="content-line text-lg text-white/60 leading-relaxed flex items-start gap-2">
                 <Globe size={20} className="mt-1 text-[#2e5bff] flex-shrink-0" />
-                <span>Working globally to solve complex business workflow challenges 
-                and deliver enterprise-grade solutions that scale.</span>
+                <span>Building C#/.NET middleware that connects Business Central to
+                e-commerce platforms, LS Central POS and EFT payment hardware — with
+                a consistent focus on data integrity and minimal downtime.</span>
               </p>
 
               {/* CTA Button */}
@@ -377,7 +379,7 @@ export default function About() {
             {/* Tech Stack Marquee */}
             <div className="mt-12 overflow-hidden opacity-50">
               <div className="flex gap-8 animate-marquee whitespace-nowrap">
-                {['AL Language', '.NET Core', 'C#', 'SQL Server', 'Azure', 'Docker', 'React', 'TypeScript', 'PowerShell'].map((tech, i) => (
+                {['AL Language', 'C/AL', '.NET', 'C#', 'MAUI', 'LS Central', 'SQL Server', 'RDLC', 'Azure DevOps', 'Magento', 'Git'].map((tech, i) => (
                   <span key={i} className="text-sm text-white/40 font-mono flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#2e5bff]" />
                     {tech}

@@ -1,19 +1,20 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  ArrowUpRight, 
-  GitBranch, 
-  Layers, 
-  Box, 
-  ShoppingCart, 
-  Truck, 
-  BookOpen, 
+import {
+  ArrowUpRight,
+  GitBranch,
+  Layers,
+  Box,
+  ShoppingCart,
+  Truck,
+  BookOpen,
   ExternalLink,
   Code2,
   Database,
   CreditCard,
-  MailCheck
+  MailCheck,
+  Smartphone
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -21,67 +22,107 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     type: 'Business Central',
-    title: 'Aljaziraa NAV 2009 to BC 2022 Upgrade',
-    description: 'Complete migration of legacy NAV 2009 system to modern Business Central 2022, including data migration, custom code upgrade, and user training.',
+    title: 'Al Jazira — Navision 2009 R2 to BC 23',
+    description: 'Migrated a legacy Navision 2009 R2 system to Business Central 23, delivering a seamless data migration with improved performance and expanded platform functionality.',
     icon: Database,
     color: '#2e5bff',
-    tags: ['Migration', 'Data Upgrade', 'Training']
+    tags: ['NAV 2009 R2', 'BC 23', 'Data Migration']
   },
   {
     type: 'Business Central',
-    title: 'TBH NAV 2016 to BC 2022 Upgrade',
-    description: 'Successfully upgraded NAV 2016 to Business Central 2022 with minimal downtime, ensuring business continuity throughout the transition.',
+    title: 'Maldives Duty Free — NAV 2016 to BC 23',
+    description: 'End-to-end NAV 2016 to Business Central 23 upgrade — data preparation through go-live. Extended BC–Magento and BC–WordPress integrations to support custom fields.',
     icon: GitBranch,
     color: '#00f2fe',
-    tags: ['Zero Downtime', 'BC 2022', 'Enterprise']
-  },
-  {
-    type: 'Integration',
-    title: 'African Eastern POS & API Integration',
-    description: 'Developed POS customization and integrated with 3PL, EMR, Magento, WooCommerce, and WordPress for seamless omnichannel experience.',
-    icon: ShoppingCart,
-    color: '#ff2e63',
-    tags: ['POS', 'API', 'E-commerce']
-  },
-  {
-    type: 'App Development',
-    title: 'QBL Delivery Management App',
-    description: 'Led development of a comprehensive delivery management application as Senior Developer, optimizing logistics operations.',
-    icon: Truck,
-    color: '#08fdd8',
-    tags: ['Logistics', 'Mobile', 'Optimization']
+    tags: ['Duty Free', 'BC 23', 'BC–Magento']
   },
   {
     type: 'Business Central',
-    title: 'Afrina NAV 2019 to BC 2026 Migration',
-    description: 'Complete migration from NAV 2019 to Business Central 2026, including custom extensions, reports, and third-party integrations.',
+    title: 'African & Eastern — NAV 2016 to BC 24',
+    description: 'Upgraded NAV 2016 to Business Central 24 and customized modules to unique business requirements. Delivered advanced API integration between Business Central and Magento.',
+    icon: ShoppingCart,
+    color: '#ff2e63',
+    tags: ['BC 24', 'Magento API', 'Retail']
+  },
+  {
+    type: 'Business Central',
+    title: 'Mister Baker — BC 24 Upgrade',
+    description: 'Executed a complex Business Central 24 upgrade with minimal downtime, unlocking the latest platform features and optimizations for hospitality operations.',
     icon: Layers,
     color: '#ff9f43',
-    tags: ['BC 2026', 'Extensions', 'Reports']
+    tags: ['BC 24', 'Hospitality', 'Zero Downtime']
+  },
+  {
+    type: 'Business Central',
+    title: 'Nazih Trading — BC 25 to BC 28',
+    description: 'Upgraded Business Central 25 to 28, developed RDLC reports and implemented a license-date driven auto-lock control for regulated licensing scenarios.',
+    icon: GitBranch,
+    color: '#08fdd8',
+    tags: ['BC 28', 'RDLC', 'Auto-lock']
+  },
+  {
+    type: 'Payments',
+    title: 'DLL-Based EFT Device Integration (NAV / MDFP)',
+    description: 'Designed and developed a .NET DLL acting as the middleware bridge between EFT payment terminals and Microsoft Dynamics NAV / MDFP — covering hardware communication, transaction processing, status management and error handling.',
+    icon: CreditCard,
+    color: '#2ee6a8',
+    tags: ['.NET DLL', 'EFT', 'Payments']
   },
   {
     type: 'LS Central',
     title: 'PAX A35 EFT Integration in LS Central POS',
-    description: 'Integrated the PAX A35 EFT payment terminal with LS Central POS using AL control add-ins, enabling secure card payments with real-time transaction status at the till.',
+    description: 'Engineered a secure PAX A35 payment terminal integration for LS Central POS using AL control add-ins, delivering real-time transaction status and reliable card payments at the till.',
     icon: CreditCard,
-    color: '#2ee6a8',
-    tags: ['Control Add-in', 'EFT Payment', 'LS Central POS']
+    color: '#00f2fe',
+    tags: ['Control Add-in', 'PAX A35', 'LS Central']
+  },
+  {
+    type: 'E-Commerce',
+    title: 'Comicave & Outmall — BC × Magento',
+    description: 'Developed and implemented API integrations between Business Central and Magento, enabling real-time inventory synchronization and order processing across systems.',
+    icon: ShoppingCart,
+    color: '#a55eea',
+    tags: ['Magento', 'REST API', 'Inventory Sync']
+  },
+  {
+    type: 'App Development',
+    title: 'QBL Delivery Management App (BC)',
+    description: 'Led end-to-end development of a delivery management application as Senior Developer, streamlining route planning and real-time tracking to optimize logistics operations.',
+    icon: Truck,
+    color: '#08fdd8',
+    tags: ['Logistics', 'Mobile', 'BC']
+  },
+  {
+    type: 'MAUI',
+    title: 'Mini ERP (.NET MAUI)',
+    description: 'Cross-platform Mini ERP built with .NET MAUI covering inventory, sales and purchase workflows — designed for small businesses that need lightweight ERP capability on desktop and mobile.',
+    icon: Layers,
+    color: '#ff9f43',
+    tags: ['.NET MAUI', 'Cross-platform', 'ERP']
+  },
+  {
+    type: 'MAUI',
+    title: 'Mobile Billing App + Dashboard (.NET MAUI)',
+    description: 'Mobile billing application built with .NET MAUI, linked to a live dashboard for real-time sales, invoice and revenue tracking across devices.',
+    icon: Smartphone,
+    color: '#ff2e63',
+    tags: ['.NET MAUI', 'Billing', 'Dashboard']
   },
   {
     type: 'Automation',
     title: 'Cloudspace Mail Automation & Upgrade',
-    description: 'Built auto-generated email workflows for Cloudspace, eliminating manual notifications, and carried out the platform upgrade to the latest version.',
+    description: 'Designed automated email workflows that eliminated manual notification processes, and led the platform upgrade to the latest version to improve stability and performance.',
     icon: MailCheck,
     color: '#ff5e7d',
     tags: ['Email Automation', 'Upgrade', 'Workflows']
   },
   {
     type: '.NET',
-    title: 'Library Management System',
-    description: 'Built a comprehensive library management system using .NET technologies with features for cataloging, lending, and reporting.',
+    title: 'Library Management System (.NET)',
+    description: 'Full-stack library management system covering cataloging, lending and reporting to streamline end-to-end library operations.',
     icon: BookOpen,
-    color: '#a55eea',
-    tags: ['.NET', 'Full-stack', 'Management']
+    color: '#2e5bff',
+    tags: ['.NET', 'Full-stack', 'CRUD']
   }
 ];
 
