@@ -94,7 +94,7 @@ const projects = [
   },
   {
     type: 'MAUI',
-    title: 'Mini ERP (.NET MAUI)',
+    title: 'Mini ERP (.NET + React Native)',
     description: 'Cross-platform Mini ERP built with .NET MAUI covering inventory, sales and purchase workflows — designed for small businesses that need lightweight ERP capability on desktop and mobile.',
     icon: Layers,
     color: '#ff9f43',
@@ -102,7 +102,7 @@ const projects = [
   },
   {
     type: 'MAUI',
-    title: 'Mobile Billing App + Dashboard (.NET MAUI)',
+    title: 'Mobile Billing App + Web Dashboard (.NET MAUI)',
     description: 'Mobile billing application built with .NET MAUI, linked to a live dashboard for real-time sales, invoice and revenue tracking across devices.',
     icon: Smartphone,
     color: '#ff2e63',
