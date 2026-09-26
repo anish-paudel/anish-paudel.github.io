@@ -263,14 +263,18 @@ export default function About() {
 
               {/* CTA Button */}
               <div className="content-line pt-4">
-                <button className="group relative px-8 py-3 rounded-full overflow-hidden">
+                <a
+                  href="/Anish-Paudel-CV.pdf"
+                  download="Anish-Paudel-CV.pdf"
+                  className="group relative inline-block px-8 py-3 rounded-full overflow-hidden"
+                >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] opacity-80 group-hover:opacity-100 transition-opacity" />
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                   <span className="relative text-white font-medium flex items-center gap-2">
                     Download Resume
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>
-                </button>
+                </a>
               </div>
             </div>
           </div>

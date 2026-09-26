@@ -299,7 +299,7 @@ export default function Contact() {
         <div className="mt-16 text-center">
           <p className="text-white/30 text-sm">
             Prefer a formal approach? Download my{' '}
-            <a href="#" className="text-[#2e5bff] hover:underline">resume</a>
+            <a href="/Anish-Paudel-CV.pdf" download="Anish-Paudel-CV.pdf" className="text-[#2e5bff] hover:underline">resume</a>
             {' '}or view my{' '}
             <a href="#" className="text-[#2e5bff] hover:underline">portfolio</a>
           </p>
