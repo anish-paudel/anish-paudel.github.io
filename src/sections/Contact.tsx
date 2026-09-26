@@ -13,7 +13,7 @@ interface SocialLink {
 }
 
 const socialLinks: SocialLink[] = [
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/anish-paudel-6123', icon: Linkedin, color: '#0077b5' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/anish-paudel-6123721b5/', icon: Linkedin, color: '#0077b5' },
   { name: 'GitHub', href: 'https://github.com/anish-paudel', icon: Github, color: '#ffffff' },
   { name: 'Twitter', href: 'https://twitter.com/anishpaudel', icon: Twitter, color: '#1da1f2' },
 ];
