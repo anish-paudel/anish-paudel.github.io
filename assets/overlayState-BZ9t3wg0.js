@@ -1,0 +1,1 @@
+import{r as o}from"./react-vendor-D1MasUqb.js";let t=0;const n=new Set;function r(){for(const e of n)e()}function f(){t++,t===1&&r()}function i(){t=Math.max(0,t-1),t===0&&r()}function s(e){return n.add(e),()=>{n.delete(e)}}function u(){return t>0}function a(){return!1}function p(){return o.useSyncExternalStore(s,u,a)}export{i as a,f as p,p as u};
