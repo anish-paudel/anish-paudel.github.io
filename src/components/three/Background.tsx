@@ -1,6 +1,7 @@
 import { useRef, useMemo, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useOverlayOpen } from '../../lib/overlayState';
 
 // Seeded random generator for deterministic values
 function createSeededRandom(seed: number) {
@@ -83,80 +84,64 @@ const particleFragmentShader = `
 // Advanced floating particles with shader material
 function AdvancedParticles() {
   const pointsRef = useRef<THREE.Points>(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
   const particleCount = isLowPower ? 100 : 200;
-  
+
   // Use seeded random for deterministic values
   const [positions, scales, randoms] = useMemo(() => {
     const rand = createSeededRandom(12345);
     const pos = new Float32Array(particleCount * 3);
     const scl = new Float32Array(particleCount);
     const rnd = new Float32Array(particleCount * 3);
-    
+
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
       const theta = rand() * Math.PI * 2;
       const phi = Math.acos(2 * rand() - 1);
       const r = 5 + rand() * 15;
-      
+
       pos[i3] = r * Math.sin(phi) * Math.cos(theta);
       pos[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       pos[i3 + 2] = r * Math.cos(phi) * 0.5;
-      
+
       scl[i] = 0.5 + rand() * 1.5;
       rnd[i3] = rand();
       rnd[i3 + 1] = rand();
       rnd[i3 + 2] = rand();
     }
-    
+
     return [pos, scl, rnd];
   }, []);
-  
-  // Initialize uniforms in useEffect to avoid render-phase mutation issues
+
   const uniformsRef = useRef<{
     uTime: { value: number };
     uMouse: { value: THREE.Vector2 };
   } | null>(null);
-  
-  // Set up uniforms after initial render
+
+  // Set up uniforms after initial render. uMouse is parked far off-scene so
+  // the mouse-dependent branches in the shader never trigger.
   useEffect(() => {
     uniformsRef.current = {
       uTime: { value: 0 },
-      uMouse: { value: new THREE.Vector2(0, 0) }
+      uMouse: { value: new THREE.Vector2(100, 100) },
     };
-    
-    // Force a re-render to pass uniforms to shader
+
     const material = pointsRef.current?.material as THREE.ShaderMaterial;
-    if (material) {
-      material.uniforms = uniformsRef.current;
-    }
+    if (material) material.uniforms = uniformsRef.current;
   }, []);
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-  
+
   useFrame((state) => {
     if (!pointsRef.current || !uniformsRef.current) return;
-    
+
     uniformsRef.current.uTime.value = state.clock.getElapsedTime();
-    uniformsRef.current.uMouse.value.x += (mouseRef.current.x - uniformsRef.current.uMouse.value.x) * 0.05;
-    uniformsRef.current.uMouse.value.y += (mouseRef.current.y - uniformsRef.current.uMouse.value.y) * 0.05;
-    
-    // Gentle rotation
+
+    // Gentle ambient rotation only
     pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.02;
     pointsRef.current.rotation.z = Math.sin(state.clock.getElapsedTime() * 0.1) * 0.05;
   });
-  
-  // Use dummy uniforms for initial render, will be replaced in useEffect
+
   const dummyUniforms = useMemo(() => ({
     uTime: { value: 0 },
-    uMouse: { value: new THREE.Vector2(0, 0) }
+    uMouse: { value: new THREE.Vector2(100, 100) },
   }), []);
   
   return (
@@ -190,8 +175,7 @@ function AdvancedParticles() {
 // Interactive wave plane with vertex displacement shader
 function AdvancedWavePlane() {
   const meshRef = useRef<THREE.Mesh>(null);
-  const mouseRef = useRef({ x: 0, y: 0, vx: 0, vy: 0 });
-  
+
   const vertexShader = `
     uniform float uTime;
     uniform vec2 uMouse;
@@ -285,53 +269,28 @@ function AdvancedWavePlane() {
     uHover: { value: number };
   } | null>(null);
   
+  // uMouse is parked far off-scene and uHover stays 0, so the mouse ripple
+  // in the shader has zero amplitude.
   useEffect(() => {
     uniformsRef.current = {
       uTime: { value: 0 },
-      uMouse: { value: new THREE.Vector2(0, 0) },
-      uHover: { value: 0 }
+      uMouse: { value: new THREE.Vector2(100, 100) },
+      uHover: { value: 0 },
     };
-    
-    // Force a re-render to pass uniforms to shader
+
     const material = meshRef.current?.material as THREE.ShaderMaterial;
-    if (material) {
-      material.uniforms = uniformsRef.current;
-    }
+    if (material) material.uniforms = uniformsRef.current;
   }, []);
-  
-  useEffect(() => {
-    let lastX = 0, lastY = 0;
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-      const y = -(e.clientY / window.innerHeight) * 2 + 1;
-      mouseRef.current.vx = x - lastX;
-      mouseRef.current.vy = y - lastY;
-      mouseRef.current.x = x;
-      mouseRef.current.y = y;
-      lastX = x;
-      lastY = y;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-  
+
   useFrame((state) => {
     if (!meshRef.current || !uniformsRef.current) return;
-    
     uniformsRef.current.uTime.value = state.clock.getElapsedTime();
-    uniformsRef.current.uMouse.value.x += (mouseRef.current.x - uniformsRef.current.uMouse.value.x) * 0.05;
-    uniformsRef.current.uMouse.value.y += (mouseRef.current.y - uniformsRef.current.uMouse.value.y) * 0.05;
-    
-    // Calculate hover intensity based on mouse velocity
-    const velocity = Math.sqrt(mouseRef.current.vx ** 2 + mouseRef.current.vy ** 2);
-    uniformsRef.current.uHover.value += (velocity * 5 - uniformsRef.current.uHover.value) * 0.1;
   });
-  
-  // Use dummy uniforms for initial render, will be replaced in useEffect
+
   const dummyUniforms = useMemo(() => ({
     uTime: { value: 0 },
-    uMouse: { value: new THREE.Vector2(0, 0) },
-    uHover: { value: 0 }
+    uMouse: { value: new THREE.Vector2(100, 100) },
+    uHover: { value: 0 },
   }), []);
   
   return (
@@ -358,7 +317,6 @@ function AdvancedWavePlane() {
 function NeuralNetwork() {
   const linesRef = useRef<THREE.LineSegments>(null);
   const particlesRef = useRef<THREE.Points>(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
   const lineGeoRef = useRef<THREE.BufferGeometry | null>(null);
   
   const nodeCount = isLowPower ? 18 : 30;
@@ -389,38 +347,20 @@ function NeuralNetwork() {
   useEffect(() => {
     lineGeoRef.current = lineGeometry;
   }, [lineGeometry]);
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-  
+
   useFrame((state) => {
     if (!linesRef.current || !particlesRef.current || !lineGeoRef.current) return;
-    
+
     const time = state.clock.getElapsedTime();
     const positions = lineGeoRef.current.attributes.position.array as Float32Array;
     let index = 0;
     const connectionDistance = 7;
-    
-    // Update node positions with organic movement
+
+    // Ambient organic motion only — mouse attraction removed.
     nodePositions.forEach((node, i) => {
       const originalY = node.y;
       node.y = originalY + Math.sin(time * 0.5 + i) * 0.5;
       node.x += Math.cos(time * 0.3 + i * 0.5) * 0.01;
-      
-      // Mouse attraction
-      const dx = mouseRef.current.x * 10 - node.x;
-      const dy = mouseRef.current.y * 5 - node.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 8) {
-        node.x += dx * 0.002;
-        node.y += dy * 0.002;
-      }
     });
     
     // Update particle positions
@@ -523,33 +463,24 @@ function FloatingShapes() {
   );
 }
 
-// Ambient light orb that follows mouse
+// Ambient light orb — now orbits on a time-based Lissajous path instead of
+// tracking the mouse.
 function LightOrb() {
   const lightRef = useRef<THREE.PointLight>(null);
   const meshRef = useRef<THREE.Mesh>(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-  
+
   useFrame((state) => {
     if (!lightRef.current || !meshRef.current) return;
     const time = state.clock.getElapsedTime();
-    
-    const targetX = mouseRef.current.x * 8;
-    const targetY = mouseRef.current.y * 5;
+
+    const targetX = Math.sin(time * 0.4) * 6;
+    const targetY = Math.cos(time * 0.3) * 4;
     const targetZ = 2 + Math.sin(time) * 2;
-    
+
     lightRef.current.position.x += (targetX - lightRef.current.position.x) * 0.05;
     lightRef.current.position.y += (targetY - lightRef.current.position.y) * 0.05;
     lightRef.current.position.z += (targetZ - lightRef.current.position.z) * 0.05;
-    
+
     meshRef.current.position.copy(lightRef.current.position);
     meshRef.current.rotation.z = time * 0.5;
   });
@@ -565,41 +496,17 @@ function LightOrb() {
   );
 }
 
-// Camera with smooth parallax and zoom - using a different approach
+// Camera — static anchor looking at the origin. Mouse parallax and wheel
+// zoom have been removed; the ambient scene elements still animate on their
+// own, so the view keeps life without input.
 function AdvancedCamera() {
   const { camera } = useThree();
-  const mouseRef = useRef({ x: 0, y: 0, targetZ: 12 });
-  const cameraRef = useRef(camera);
-  
+
   useEffect(() => {
-    cameraRef.current = camera;
+    camera.position.set(0, 0, 12);
+    camera.lookAt(0, 0, 0);
   }, [camera]);
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseRef.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    const handleWheel = (e: WheelEvent) => {
-      mouseRef.current.targetZ += e.deltaY * 0.01;
-      mouseRef.current.targetZ = Math.max(8, Math.min(20, mouseRef.current.targetZ));
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('wheel', handleWheel);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, []);
-  
-  useFrame(() => {
-    const cam = cameraRef.current;
-    cam.position.x += (mouseRef.current.x * 2 - cam.position.x) * 0.03;
-    cam.position.y += (-mouseRef.current.y * 1.5 - cam.position.y) * 0.03;
-    cam.position.z += (mouseRef.current.targetZ - cam.position.z) * 0.05;
-    cam.lookAt(0, 0, 0);
-  });
-  
+
   return null;
 }
 
@@ -634,12 +541,14 @@ function Loader() {
 
 // Main component
 export default function AdvancedBackground() {
+  const overlayOpen = useOverlayOpen();
   return (
     <div className="fixed inset-0 z-0 bg-[#050510]">
       <Suspense fallback={<Loader />}>
         <Canvas
           camera={{ position: [0, 0, 12], fov: 60 }}
           dpr={[1, isLowPower ? 1.25 : 1.5]}
+          frameloop={overlayOpen ? 'never' : 'always'}
           gl={{
             antialias: false,
             alpha: true,

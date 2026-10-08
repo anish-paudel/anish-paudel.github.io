@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Menu, X, Gamepad2 } from 'lucide-react';
 import gsap from 'gsap';
-import GameDisplay from './GameDisplay';
 import { scrollToSection } from '../lib/lenis';
+
+const GameDisplay = lazy(() => import('./GameDisplay'));
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -213,11 +214,15 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Game Dialog */}
-      <GameDisplay 
-        isOpen={isGameDialogOpen} 
-        onClose={() => setIsGameDialogOpen(false)} 
-      />
+      {/* Game Dialog — lazy loaded on first open */}
+      {isGameDialogOpen && (
+        <Suspense fallback={null}>
+          <GameDisplay
+            isOpen={isGameDialogOpen}
+            onClose={() => setIsGameDialogOpen(false)}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

@@ -312,12 +312,13 @@ export default function NeonOverdriveGame({ isOpen, onClose }: NeonOverdriveGame
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 const animationRef = useRef<number | null>(null);
+  const vignetteRef = useRef<CanvasGradient | null>(null);
   
   // Game state refs (using refs for mutable game state to avoid re-renders)
   const gameStateRef = useRef<GameState>('MENU');
   const scoreRef = useRef(0);
   const healthRef = useRef(100);
-  const speedRef = useRef(CONFIG.baseSpeed);
+  const speedRef = useRef<number>(CONFIG.baseSpeed);
   const frameRef = useRef(0);
   const shakeRef = useRef(0);
   const lastTimeRef = useRef(0);
@@ -334,7 +335,7 @@ const animationRef = useRef<number | null>(null);
   const [gameState, setGameState] = useState<GameState>('MENU');
   const [score, setScore] = useState(0);
   const [health, setHealth] = useState(100);
-  const [speed, _setSpeed] = useState(CONFIG.baseSpeed);
+  const [speed, setSpeed] = useState<number>(CONFIG.baseSpeed);
 
   // Initialize canvas and game
   const initGame = useCallback(() => {
@@ -360,11 +361,12 @@ const animationRef = useRef<number | null>(null);
   const handleResize = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     laneWidthRef.current = canvas.width / CONFIG.laneCount;
-    
+    vignetteRef.current = null;
+
     if (playerRef.current) {
       playerRef.current.y = canvas.height - 150;
       playerRef.current.laneWidth = laneWidthRef.current;
@@ -396,17 +398,19 @@ const animationRef = useRef<number | null>(null);
   // Game update logic
   const update = useCallback((_deltaTime: number) => {
     if (gameStateRef.current !== 'PLAYING') return;
-    const [_speed, setSpeed] = useState<number>(0);
-const speedRef = useRef<number>(0);
 
     frameRef.current++;
     scoreRef.current += speedRef.current * 0.1;
     speedRef.current = Math.min(speedRef.current + CONFIG.acceleration, CONFIG.maxSpeed);
 
-    // Update UI state
-    setScore(Math.floor(scoreRef.current));
-    setHealth(Math.max(0, healthRef.current));
-    setSpeed(Math.floor(speedRef.current * 100));
+    // Throttle HUD state updates to ~10 Hz. The HUD only shows integers that
+    // change slowly, so a per-frame setState on three values was triggering
+    // ~180 React updates/sec with no visible gain.
+    if (frameRef.current % 6 === 0) {
+      setScore(Math.floor(scoreRef.current));
+      setHealth(Math.max(0, healthRef.current));
+      setSpeed(Math.floor(speedRef.current * 100));
+    }
 
     // Update Player
     playerRef.current?.update();
@@ -527,14 +531,17 @@ const speedRef = useRef<number>(0);
     // Draw Particles
     particlesRef.current.forEach(p => p.draw(ctx));
 
-    // Vignette
-    const grad = ctx.createRadialGradient(
-      canvas.width / 2, canvas.height / 2, canvas.height / 3,
-      canvas.width / 2, canvas.height / 2, canvas.height
-    );
-    grad.addColorStop(0, 'rgba(0,0,0,0)');
-    grad.addColorStop(1, 'rgba(0,0,0,0.8)');
-    ctx.fillStyle = grad;
+    // Vignette — cached, rebuilt only when the canvas resizes.
+    if (!vignetteRef.current) {
+      const g = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, canvas.height / 3,
+        canvas.width / 2, canvas.height / 2, canvas.height,
+      );
+      g.addColorStop(0, 'rgba(0,0,0,0)');
+      g.addColorStop(1, 'rgba(0,0,0,0.8)');
+      vignetteRef.current = g;
+    }
+    ctx.fillStyle = vignetteRef.current;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.restore();
@@ -575,7 +582,6 @@ const speedRef = useRef<number>(0);
 
   // Input handlers
   useEffect(() => {
-    const speedRef = useRef<number>(CONFIG.baseSpeed);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (gameStateRef.current !== 'PLAYING') return;
       
