@@ -189,43 +189,43 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative min-h-screen py-32 px-6 lg:px-12 overflow-hidden"
+      className="relative min-h-screen py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 overflow-hidden"
     >
       {/* Ambient Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2e5bff]/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00f2fe]/10 rounded-full blur-[120px]" />
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-[#2e5bff]/10 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] bg-[#00f2fe]/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
-            <Box size={16} className="text-[#2e5bff]" />
-            <span className="text-sm text-white/60 font-medium tracking-wider uppercase">Portfolio</span>
+        <div ref={headerRef} className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/5 border border-white/10 mb-4 sm:mb-6">
+            <Box size={14} className="text-[#2e5bff] sm:w-4 sm:h-4" />
+            <span className="text-xs sm:text-sm text-white/60 font-medium tracking-wider uppercase">Portfolio</span>
           </div>
-          
-          <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white mb-6">
+
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 sm:mb-6">
             Featured{' '}
             <span className="bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] bg-clip-text text-transparent">
               Projects
             </span>
           </h2>
-          
-          <p className="text-lg text-white/50 max-w-2xl mx-auto">
+
+          <p className="text-base sm:text-lg text-white/50 max-w-2xl mx-auto px-2">
             Key implementations and migrations I've led, delivering enterprise-grade solutions across diverse industries
           </p>
         </div>
 
         {/* Projects Grid */}
-        <div 
-          ref={gridRef} 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 perspective-1000"
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 perspective-1000"
         >
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card group relative p-6 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
+              className="project-card group relative p-5 sm:p-6 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
               style={{
                 background: 'rgba(255, 255, 255, 0.03)',
                 backdropFilter: 'blur(10px)',

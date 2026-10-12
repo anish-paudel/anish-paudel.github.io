@@ -177,34 +177,34 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative min-h-screen py-32 px-6 lg:px-12 overflow-hidden"
+      className="relative min-h-screen py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 overflow-hidden"
     >
       {/* Ambient Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Floating orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#2e5bff]/10 rounded-full blur-[100px] animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#00f2fe]/10 rounded-full blur-[120px] animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#ff2e63]/5 rounded-full blur-[150px]" />
+        <div className="absolute top-20 left-10 w-48 h-48 sm:w-72 sm:h-72 bg-[#2e5bff]/10 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-64 h-64 sm:w-96 sm:h-96 bg-[#00f2fe]/10 rounded-full blur-[120px] animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-[#ff2e63]/5 rounded-full blur-[150px]" />
       </div>
 
       {/* Section Header */}
       <div className="relative z-10 max-w-7xl mx-auto">
         <h2
           ref={headingRef}
-          className="font-display text-5xl sm:text-6xl lg:text-8xl text-white mb-20 flex items-center gap-6"
+          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-12 sm:mb-16 lg:mb-20 flex items-center gap-3 sm:gap-6"
         >
-          <span className="bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent whitespace-nowrap">
             ABOUT ME
           </span>
-          <span className="flex-1 h-[2px] bg-gradient-to-r from-[#2e5bff] via-[#00f2fe] to-transparent opacity-50" />
-          <Sparkles className="w-8 h-8 text-[#2e5bff] animate-pulse" />
+          <span className="flex-1 h-[2px] bg-gradient-to-r from-[#2e5bff] via-[#00f2fe] to-transparent opacity-50 min-w-0" />
+          <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-[#2e5bff] animate-pulse shrink-0" />
         </h2>
 
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-20 items-start">
           {/* Left Column - Bio & Image */}
-          <div className="lg:col-span-5 space-y-10">
+          <div className="lg:col-span-5 space-y-8 sm:space-y-10">
             {/* Profile Image with Orbiting Elements */}
-            <div className="relative w-56 h-56 mx-auto lg:mx-0" ref={orbitRef}>
+            <div className="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 mx-auto lg:mx-0" ref={orbitRef}>
               {/* Outer glow */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2e5bff]/30 to-[#00f2fe]/30 blur-2xl animate-pulse" />
               
@@ -219,7 +219,7 @@ export default function About() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#2e5bff]/20 to-[#00f2fe]/20 backdrop-blur-sm border border-white/10" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display text-7xl bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+                  <span className="font-display text-4xl sm:text-5xl lg:text-6xl bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
                     AP
                   </span>
                 </div>
@@ -242,19 +242,19 @@ export default function About() {
                 <span className="text-sm font-medium tracking-wider uppercase">Pokhara, Nepal</span>
               </div>
 
-              <p className="content-line text-xl text-white/80 leading-relaxed font-light">
+              <p className="content-line text-lg sm:text-xl text-white/80 leading-relaxed font-light">
                 I am a <span className="text-white font-semibold bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] bg-clip-text text-transparent">
                   Technical Consultant
                 </span> specializing in Microsoft Dynamics NAV and D365 Business Central.
               </p>
 
-              <p className="content-line text-lg text-white/60 leading-relaxed">
+              <p className="content-line text-base sm:text-lg text-white/60 leading-relaxed">
                 Four years of hands-on ERP delivery for international retail,
                 hospitality and duty-free clients — from AL and C/AL development
                 to large-scale NAV-to-BC upgrades (Navision 2009 R2 through BC 28).
               </p>
 
-              <p className="content-line text-lg text-white/60 leading-relaxed flex items-start gap-2">
+              <p className="content-line text-base sm:text-lg text-white/60 leading-relaxed flex items-start gap-2">
                 <Globe size={20} className="mt-1 text-[#2e5bff] flex-shrink-0" />
                 <span>Building C#/.NET middleware that connects Business Central to
                 e-commerce platforms, LS Central POS and EFT payment hardware — with
@@ -280,20 +280,20 @@ export default function About() {
           </div>
 
           {/* Right Column - Competencies */}
-          <div className="lg:col-span-7 space-y-8">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/20" />
-              <h3 className="font-display text-2xl text-white/40 uppercase tracking-[0.2em]">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+            <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/20 min-w-0" />
+              <h3 className="font-display text-lg sm:text-xl lg:text-2xl text-white/40 uppercase tracking-[0.15em] sm:tracking-[0.2em] whitespace-nowrap">
                 Core Competencies
               </h3>
-              <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-white/20" />
+              <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-white/20 min-w-0" />
             </div>
-            
-            <div ref={cardsRef} className="grid sm:grid-cols-2 gap-4">
+
+            <div ref={cardsRef} className="grid sm:grid-cols-2 gap-3 sm:gap-4">
               {competencies.map((comp, index) => (
                 <div
                   key={index}
-                  className="competency-card group relative p-6 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02]"
+                  className="competency-card group relative p-4 sm:p-6 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02]"
                   style={{
                     background: 'rgba(255, 255, 255, 0.03)',
                     backdropFilter: 'blur(10px)',
@@ -343,11 +343,11 @@ export default function About() {
             </div>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-3 gap-4 mt-12">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-10 sm:mt-12">
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="group relative p-6 rounded-2xl text-center overflow-hidden transition-all duration-500 hover:scale-105"
+                  className="group relative p-3 sm:p-6 rounded-2xl text-center overflow-hidden transition-all duration-500 hover:scale-105"
                   style={{
                     background: 'rgba(255, 255, 255, 0.02)',
                     backdropFilter: 'blur(10px)',
@@ -360,16 +360,16 @@ export default function About() {
                   </div>
 
                   <div className="relative">
-                    <div 
-                      className="stat-value font-display text-4xl sm:text-5xl mb-2 bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent"
+                    <div
+                      className="stat-value font-display text-xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2 bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent"
                       data-value={stat.value}
                     >
                       {stat.value}
                     </div>
-                    <div className="text-sm text-white/50 font-medium uppercase tracking-wider">
+                    <div className="text-[11px] sm:text-sm text-white/50 font-medium uppercase tracking-wider">
                       {stat.label}
                     </div>
-                    <div className="text-xs text-white/30 mt-1">
+                    <div className="text-[10px] sm:text-xs text-white/30 mt-0.5 sm:mt-1">
                       {stat.sublabel}
                     </div>
                   </div>

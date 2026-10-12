@@ -269,12 +269,12 @@ export default function Hero() {
       />
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
-        
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-6xl mx-auto w-full">
+
         {/* Pre-title Badge */}
-        <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+        <div className="mb-6 sm:mb-8 inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
           <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-xs text-white/70 font-mono tracking-[0.2em] uppercase">Available for Projects</span>
+          <span className="text-[10px] sm:text-xs text-white/70 font-mono tracking-[0.2em] uppercase">Available for Projects</span>
         </div>
 
         {/* Main Title with All Effects */}
@@ -288,7 +288,7 @@ export default function Hero() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] rounded-full" />
           </div>
 
-          <h1 className="relative font-display text-[clamp(4rem,15vw,12rem)] leading-[0.85] tracking-tighter select-none">
+          <h1 className="relative font-display text-[clamp(2.25rem,10vw,8rem)] leading-[0.85] tracking-tighter select-none break-words">
             {/* Line 1: ANISH */}
             <span className="block relative">
               {/* Shadow Layer */}
@@ -422,8 +422,8 @@ export default function Hero() {
         </div>
 
         {/* Subtitle */}
-        <div ref={subtitleRef} className="mb-12 max-w-3xl mx-auto">
-          <p className="text-lg sm:text-2xl text-white/60 font-light leading-relaxed">
+        <div ref={subtitleRef} className="mb-8 sm:mb-12 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-white/60 font-light leading-relaxed break-words">
             {'NAV & BC Technical Consultant'.split('').map((char, i) => (
               <span key={i} className="char inline-block" style={{ whiteSpace: char === ' ' ? 'pre' : 'normal' }}>
                 {char}
@@ -445,43 +445,43 @@ export default function Hero() {
         </div>
 
         {/* CTA Buttons */}
-        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full">
           <button
             onClick={() => scrollToSection('#projects')}
-            className="group relative px-8 py-4 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(46,91,255,0.4)]"
+            className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(46,91,255,0.4)]"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] transition-transform duration-300 group-hover:scale-110" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            <span className="relative flex items-center gap-3 text-white font-semibold text-sm uppercase tracking-[2px]">
-              <Sparkles size={18} className="animate-spin-slow" />
+            <span className="relative flex items-center justify-center gap-2 sm:gap-3 text-white font-semibold text-xs sm:text-sm uppercase tracking-[2px]">
+              <Sparkles size={16} className="animate-spin-slow sm:w-[18px] sm:h-[18px]" />
               View Projects
-              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform sm:w-4 sm:h-4" />
             </span>
           </button>
 
           <button
             onClick={() => scrollToSection('#contact')}
-            className="group relative px-8 py-4 rounded-full overflow-hidden border border-white/20 hover:border-[#2e5bff]/50 transition-all duration-300 hover:scale-105 bg-white/5 hover:bg-white/10"
+            className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden border border-white/20 hover:border-[#2e5bff]/50 transition-all duration-300 hover:scale-105 bg-white/5 hover:bg-white/10"
           >
-            <span className="relative flex items-center gap-3 text-white/80 group-hover:text-white font-semibold text-sm uppercase tracking-[2px] transition-colors">
+            <span className="relative flex items-center justify-center gap-2 sm:gap-3 text-white/80 group-hover:text-white font-semibold text-xs sm:text-sm uppercase tracking-[2px] transition-colors">
               Get in Touch
             </span>
           </button>
         </div>
 
         {/* Stats */}
-        <div className="mt-16 flex items-center justify-center gap-12">
+        <div className="mt-10 sm:mt-14 lg:mt-16 flex items-center justify-center gap-6 sm:gap-10 lg:gap-12 flex-wrap">
           {[
             { num: '4+', label: 'Years' },
             { num: '15+', label: 'Projects' },
             { num: '10+', label: 'Clients' }
           ].map((stat, i) => (
             <div key={i} className="text-center group cursor-default">
-              <div className="text-3xl font-display text-white mb-1 group-hover:text-[#2e5bff] transition-colors duration-300 relative">
+              <div className="text-2xl sm:text-3xl font-display text-white mb-1 group-hover:text-[#2e5bff] transition-colors duration-300 relative">
                 {stat.num}
                 <span className="absolute -inset-2 bg-[#2e5bff]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity rounded-full" />
               </div>
-              <div className="text-xs text-white/40 uppercase tracking-wider">{stat.label}</div>
+              <div className="text-[10px] sm:text-xs text-white/40 uppercase tracking-wider">{stat.label}</div>
             </div>
           ))}
         </div>

@@ -56,8 +56,15 @@
 
   body {
     @apply bg-black text-white antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+    letter-spacing: -0.01em;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Clash Display', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
   
   ::selection {
@@ -68,11 +75,14 @@
 
 @layer components {
   .font-display {
-    font-family: 'Bebas Neue', cursive;
+    font-family: 'Clash Display', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 600;
   }
-  
+
   .font-body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
   }
   
   .glass {

@@ -140,7 +140,7 @@ export default function Contact() {
               <span className="text-[#2e5bff] text-sm font-semibold tracking-wider uppercase mb-2 block">
                 Get In Touch
               </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
                 Let&apos;s <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2e5bff] to-[#00f2fe]">Connect</span>
               </h2>
             </div>
