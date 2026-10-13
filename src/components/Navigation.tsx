@@ -180,15 +180,15 @@ export default function Navigation() {
             isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
-          <div className="flex flex-col items-center justify-center h-full gap-8">
+          <div className="flex flex-col items-center justify-start h-full gap-5 pt-24 pb-8 px-6 overflow-y-auto">
             {navLinks.map((link, index) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-2xl font-display tracking-wider text-white/80 hover:text-[#2e5bff] transition-all duration-300"
-                style={{ 
-                  transitionDelay: isMobileMenuOpen ? `${index * 100}ms` : '0ms',
+                className="text-xl font-display tracking-wider text-white/80 hover:text-[#2e5bff] transition-all duration-300"
+                style={{
+                  transitionDelay: isMobileMenuOpen ? `${index * 80}ms` : '0ms',
                   transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(50px)',
                   opacity: isMobileMenuOpen ? 1 : 0
                 }}
@@ -196,18 +196,18 @@ export default function Navigation() {
                 {link.name}
               </a>
             ))}
-            
+
             {/* Play Game Button - Mobile */}
             <button
               onClick={handleGameClick}
-              className="flex items-center gap-3 px-6 py-3 text-lg font-display tracking-wider text-white bg-[#2e5bff]/20 border border-[#2e5bff]/50 rounded-full hover:bg-[#2e5bff]/40 transition-all duration-300 mt-4"
-              style={{ 
-                transitionDelay: isMobileMenuOpen ? '400ms' : '0ms',
+              className="flex items-center gap-2 px-5 py-2.5 text-base font-display tracking-wider text-white bg-[#2e5bff]/20 border border-[#2e5bff]/50 rounded-full hover:bg-[#2e5bff]/40 transition-all duration-300 mt-2"
+              style={{
+                transitionDelay: isMobileMenuOpen ? '320ms' : '0ms',
                 transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(50px)',
                 opacity: isMobileMenuOpen ? 1 : 0
               }}
             >
-              <Gamepad2 size={24} />
+              <Gamepad2 size={20} />
               Play Game
             </button>
           </div>

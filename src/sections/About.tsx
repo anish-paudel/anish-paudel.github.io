@@ -30,18 +30,18 @@ export default function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading glitch reveal with split text effect
+      // Heading reveal (once visible, stays visible)
       const headingTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
+          start: 'top 85%',
+          once: true,
         },
       });
 
       headingTl.fromTo(
         headingRef.current,
-        { 
+        {
           clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
           opacity: 0,
           x: -50
@@ -58,7 +58,7 @@ export default function About() {
       // Image mask reveal with scale
       gsap.fromTo(
         imageRef.current,
-        { 
+        {
           clipPath: 'circle(0% at 50% 50%)',
           opacity: 0,
           scale: 0.8
@@ -71,8 +71,8 @@ export default function About() {
           ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse',
+            start: 'top 80%',
+            once: true,
           },
         }
       );
@@ -88,31 +88,9 @@ export default function About() {
         });
       });
 
-      // Content lines stagger with blur
-      const contentLines = contentRef.current?.querySelectorAll('.content-line');
-      if (contentLines) {
-        gsap.fromTo(
-          contentLines,
-          { 
-            y: 60, 
-            opacity: 0,
-            filter: 'blur(10px)'
-          },
-          {
-            y: 0,
-            opacity: 1,
-            filter: 'blur(0px)',
-            duration: 1.2,
-            stagger: 0.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: contentRef.current,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      }
+      // Bio paragraphs render as plain visible text — no entrance animation.
+      // (Previous fromTo set opacity:0 immediately and could leave text hidden
+      // on mobile if the Lenis + ScrollTrigger handshake failed to fire.)
 
       // Cards magnetic scatter/gather effect
       const cards = cardsRef.current?.querySelectorAll('.competency-card');
@@ -138,8 +116,8 @@ export default function About() {
               ease: 'back.out(1.7)',
               scrollTrigger: {
                 trigger: cardsRef.current,
-                start: 'top 85%',
-                toggleActions: 'play none none reverse',
+                start: 'top 90%',
+                once: true,
               },
             }
           );
@@ -149,7 +127,6 @@ export default function About() {
       // Stats counter animation
       const statValues = sectionRef.current?.querySelectorAll('.stat-value');
       statValues?.forEach((stat) => {
-        // const value = stat.getAttribute('data-value');
         gsap.fromTo(
           stat,
           { opacity: 0, scale: 0.5, y: 20 },
@@ -161,8 +138,8 @@ export default function About() {
             ease: 'back.out(1.7)',
             scrollTrigger: {
               trigger: stat,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse',
+              start: 'top 95%',
+              once: true,
             },
           }
         );
@@ -177,7 +154,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative min-h-screen py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 overflow-hidden"
+      className="relative min-h-screen py-14 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-12 overflow-hidden"
     >
       {/* Ambient Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
@@ -200,17 +177,17 @@ export default function About() {
           <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-[#2e5bff] animate-pulse shrink-0" />
         </h2>
 
-        <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-20 items-start">
           {/* Left Column - Bio & Image */}
-          <div className="lg:col-span-5 space-y-8 sm:space-y-10">
+          <div className="lg:col-span-5 space-y-10 sm:space-y-10 min-w-0">
             {/* Profile Image with Orbiting Elements */}
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 mx-auto lg:mx-0" ref={orbitRef}>
+            <div className="relative w-32 h-32 sm:w-48 sm:h-48 lg:w-56 lg:h-56 mx-auto lg:mx-0" ref={orbitRef}>
               {/* Outer glow */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2e5bff]/30 to-[#00f2fe]/30 blur-2xl animate-pulse" />
-              
-              {/* Orbiting rings */}
-              <div className="orbit-ring absolute inset-[-20px] rounded-full border border-[#2e5bff]/20 border-dashed" />
-              <div className="orbit-ring absolute inset-[-40px] rounded-full border border-[#00f2fe]/10" />
+
+              {/* Orbiting rings — hidden on mobile where they overlap bio text */}
+              <div className="orbit-ring absolute inset-[-20px] rounded-full border border-[#2e5bff]/20 border-dashed hidden sm:block" />
+              <div className="orbit-ring absolute inset-[-40px] rounded-full border border-[#00f2fe]/10 hidden sm:block" />
               
               {/* Main image container */}
               <div
@@ -219,7 +196,7 @@ export default function About() {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#2e5bff]/20 to-[#00f2fe]/20 backdrop-blur-sm border border-white/10" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display text-4xl sm:text-5xl lg:text-6xl bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+                  <span className="font-display text-3xl sm:text-5xl lg:text-6xl bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
                     AP
                   </span>
                 </div>
@@ -236,41 +213,41 @@ export default function About() {
             </div>
 
             {/* Bio Content */}
-            <div ref={contentRef} className="space-y-6">
+            <div ref={contentRef} className="space-y-4 sm:space-y-6">
               <div className="content-line flex items-center gap-2 text-[#00f2fe]">
-                <MapPin size={16} />
-                <span className="text-sm font-medium tracking-wider uppercase">Pokhara, Nepal</span>
+                <MapPin size={14} className="sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm font-medium tracking-wider uppercase">Pokhara, Nepal</span>
               </div>
 
-              <p className="content-line text-lg sm:text-xl text-white/80 leading-relaxed font-light">
+              <p className="content-line text-sm sm:text-xl text-white/80 leading-relaxed font-light break-words">
                 I am a <span className="text-white font-semibold bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] bg-clip-text text-transparent">
                   Technical Consultant
                 </span> specializing in Microsoft Dynamics NAV and D365 Business Central.
               </p>
 
-              <p className="content-line text-base sm:text-lg text-white/60 leading-relaxed">
+              <p className="content-line text-sm sm:text-lg text-white/60 leading-relaxed break-words">
                 Four years of hands-on ERP delivery for international retail,
                 hospitality and duty-free clients — from AL and C/AL development
                 to large-scale NAV-to-BC upgrades (Navision 2009 R2 through BC 28).
               </p>
 
-              <p className="content-line text-base sm:text-lg text-white/60 leading-relaxed flex items-start gap-2">
-                <Globe size={20} className="mt-1 text-[#2e5bff] flex-shrink-0" />
-                <span>Building C#/.NET middleware that connects Business Central to
+              <p className="content-line text-sm sm:text-lg text-white/60 leading-relaxed flex items-start gap-2">
+                <Globe size={16} className="mt-1 text-[#2e5bff] flex-shrink-0 sm:w-5 sm:h-5" />
+                <span className="min-w-0 flex-1 break-words">Building C#/.NET middleware that connects Business Central to
                 e-commerce platforms, LS Central POS and EFT payment hardware — with
                 a consistent focus on data integrity and minimal downtime.</span>
               </p>
 
               {/* CTA Button */}
-              <div className="content-line pt-4">
+              <div className="content-line pt-2 sm:pt-4">
                 <a
                   href="/Anish-Paudel-CV.pdf"
                   download="Anish-Paudel-CV.pdf"
-                  className="group relative inline-block px-8 py-3 rounded-full overflow-hidden"
+                  className="group relative inline-block px-6 py-2.5 sm:px-8 sm:py-3 rounded-full overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] opacity-80 group-hover:opacity-100 transition-opacity" />
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                  <span className="relative text-white font-medium flex items-center gap-2">
+                  <span className="relative text-white font-medium text-sm sm:text-base flex items-center gap-2">
                     Download Resume
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>
@@ -280,10 +257,10 @@ export default function About() {
           </div>
 
           {/* Right Column - Competencies */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-            <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-8 min-w-0">
+            <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-8">
               <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/20 min-w-0" />
-              <h3 className="font-display text-lg sm:text-xl lg:text-2xl text-white/40 uppercase tracking-[0.15em] sm:tracking-[0.2em] whitespace-nowrap">
+              <h3 className="font-display text-sm sm:text-xl lg:text-2xl text-white/40 uppercase tracking-[0.1em] sm:tracking-[0.2em] whitespace-nowrap">
                 Core Competencies
               </h3>
               <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-white/20 min-w-0" />
@@ -316,19 +293,19 @@ export default function About() {
                     }}
                   />
 
-                  <div className="relative flex items-start gap-4">
-                    <div 
-                      className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
+                  <div className="relative flex items-start gap-3 sm:gap-4">
+                    <div
+                      className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
                       style={{
                         background: `linear-gradient(135deg, ${comp.color}20, ${comp.color}10)`,
                         border: `1px solid ${comp.color}30`
                       }}
                     >
-                      <comp.icon size={22} style={{ color: comp.color }} />
+                      <comp.icon size={18} className="sm:w-[22px] sm:h-[22px]" style={{ color: comp.color }} />
                     </div>
-                    
-                    <div className="flex-1">
-                      <span className="text-white/90 text-sm font-medium leading-relaxed group-hover:text-white transition-colors block">
+
+                    <div className="flex-1 min-w-0">
+                      <span className="text-white/90 text-xs sm:text-sm font-medium leading-relaxed group-hover:text-white transition-colors block">
                         {comp.text}
                       </span>
                     </div>
@@ -343,11 +320,11 @@ export default function About() {
             </div>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-10 sm:mt-12">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-6 sm:mt-12">
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="group relative p-3 sm:p-6 rounded-2xl text-center overflow-hidden transition-all duration-500 hover:scale-105"
+                  className="group relative p-2.5 sm:p-6 rounded-2xl text-center overflow-hidden transition-all duration-500 hover:scale-105"
                   style={{
                     background: 'rgba(255, 255, 255, 0.02)',
                     backdropFilter: 'blur(10px)',
@@ -381,10 +358,10 @@ export default function About() {
             </div>
 
             {/* Tech Stack Marquee */}
-            <div className="mt-12 overflow-hidden opacity-50">
-              <div className="flex gap-8 animate-marquee whitespace-nowrap">
+            <div className="mt-8 sm:mt-12 overflow-hidden opacity-50">
+              <div className="flex gap-5 sm:gap-8 animate-marquee whitespace-nowrap">
                 {['AL Language', 'C/AL', '.NET', 'C#', 'MAUI', 'LS Central', 'SQL Server', 'RDLC', 'Azure DevOps', 'Magento', 'Git'].map((tech, i) => (
-                  <span key={i} className="text-sm text-white/40 font-mono flex items-center gap-2">
+                  <span key={i} className="text-xs sm:text-sm text-white/40 font-mono flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#2e5bff]" />
                     {tech}
                   </span>
