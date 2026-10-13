@@ -407,7 +407,7 @@ export default function Hero() {
 
               {/* Cursor */}
               {isTypingDone && (
-                <span className="absolute -right-8 top-0 text-[#2e5bff] animate-blink">_</span>
+                <span className="absolute -right-3 sm:-right-6 lg:-right-8 top-0 text-[#2e5bff] animate-blink">_</span>
               )}
             </span>
           </h1>
@@ -488,8 +488,8 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 cursor-pointer group"
+      <div
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3 cursor-pointer group"
         onClick={() => scrollToSection('#about')}
       >
         <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2 group-hover:border-[#2e5bff]/50 transition-colors">

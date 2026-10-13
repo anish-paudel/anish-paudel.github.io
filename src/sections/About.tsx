@@ -191,7 +191,7 @@ export default function About() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <h2
           ref={headingRef}
-          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-12 sm:mb-16 lg:mb-20 flex items-center gap-3 sm:gap-6"
+          className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-10 sm:mb-16 lg:mb-20 flex items-center gap-3 sm:gap-6"
         >
           <span className="bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent whitespace-nowrap">
             ABOUT ME
@@ -229,9 +229,9 @@ export default function About() {
               </div>
 
               {/* Floating badges */}
-              <div className="absolute -right-4 top-1/2 -translate-y-1/2 glass px-3 py-1.5 rounded-full flex items-center gap-2 animate-bounce">
+              <div className="absolute right-0 sm:-right-4 -bottom-2 sm:top-1/2 sm:bottom-auto sm:-translate-y-1/2 glass px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full flex items-center gap-2 animate-bounce">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-xs text-white/80 font-medium">Available</span>
+                <span className="text-[10px] sm:text-xs text-white/80 font-medium">Available</span>
               </div>
             </div>
 

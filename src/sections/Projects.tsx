@@ -320,8 +320,8 @@ export default function Projects() {
         </div>
 
         {/* View All CTA */}
-        <div className="mt-16 text-center">
-          <button className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full overflow-hidden transition-all duration-300 hover:scale-105">
+        <div className="mt-12 sm:mt-16 text-center">
+          <button className="group relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 text-sm sm:text-base">
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e5bff]/20 to-[#00f2fe]/20 border border-white/10 rounded-full group-hover:border-white/20 transition-colors" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e5bff] to-[#00f2fe] opacity-0 group-hover:opacity-20 transition-opacity" />
             

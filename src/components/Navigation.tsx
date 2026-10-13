@@ -99,9 +99,9 @@ export default function Navigation() {
             : 'w-[90%] max-w-4xl px-4 py-3'
         }`}
       >
-        <div 
+        <div
           className={`relative glass rounded-full overflow-hidden transition-all duration-500 ${
-            isScrolled ? 'px-4 py-2' : 'px-6 py-3'
+            isScrolled ? 'px-3 py-2 sm:px-4' : 'px-4 py-2.5 sm:px-6 sm:py-3'
           }`}
           onMouseMove={handleMouseMove}
         >
@@ -112,12 +112,12 @@ export default function Navigation() {
             style={{ transform: 'translate(-50%, -50%)' }}
           />
 
-          <div className="relative flex items-center justify-between gap-8">
+          <div className="relative flex items-center justify-between gap-4 sm:gap-8">
             {/* Logo */}
-            <a 
-              href="#home" 
+            <a
+              href="#home"
               onClick={(e) => handleLinkClick(e, '#home')}
-              className="font-display text-2xl tracking-wider text-white hover:text-[#2e5bff] transition-colors"
+              className="font-display text-xl sm:text-2xl tracking-wider text-white hover:text-[#2e5bff] transition-colors"
             >
               AP
             </a>
@@ -159,7 +159,7 @@ export default function Navigation() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>

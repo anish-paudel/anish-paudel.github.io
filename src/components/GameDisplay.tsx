@@ -137,17 +137,17 @@ export default function GameDisplay({ isOpen, onClose }: GameDisplayProps) {
         className="relative w-full max-w-4xl max-h-[90vh] overflow-hidden glass-strong rounded-3xl border border-white/10 shadow-2xl flex flex-col"
       >
         {/* Header */}
-        <div className="relative px-6 sm:px-8 py-5 border-b border-white/10 shrink-0">
+        <div className="relative px-4 sm:px-8 py-4 sm:py-5 border-b border-white/10 shrink-0">
           <div className="absolute inset-0 bg-gradient-to-r from-[#2e5bff]/10 via-transparent to-[#2e5bff]/10" />
 
-          <div className="relative flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-2xl bg-[#2e5bff]/20 border border-[#2e5bff]/30">
-                <Gamepad2 size={26} className="text-[#2e5bff]" />
+          <div className="relative flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+              <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-[#2e5bff]/20 border border-[#2e5bff]/30 shrink-0">
+                <Gamepad2 size={22} className="text-[#2e5bff] sm:w-[26px] sm:h-[26px]" />
               </div>
-              <div>
-                <h2 className="text-2xl font-display tracking-wider text-white">Game Center</h2>
-                <p className="text-sm text-white/50 mt-1">
+              <div className="min-w-0">
+                <h2 className="text-lg sm:text-2xl font-display tracking-wider text-white truncate">Game Center</h2>
+                <p className="text-xs sm:text-sm text-white/50 mt-0.5 sm:mt-1 truncate">
                   {activeGame ? 'Playing' : 'Choose a game to play'}
                 </p>
               </div>
@@ -155,16 +155,16 @@ export default function GameDisplay({ isOpen, onClose }: GameDisplayProps) {
 
             <button
               onClick={handleClose}
-              className="p-2 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20 transition-colors"
+              className="p-2 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20 transition-colors shrink-0"
               aria-label="Close dialog"
             >
-              <X size={24} />
+              <X size={20} className="sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>
 
         {/* Body */}
-        <div className="p-6 sm:p-8 overflow-y-auto">
+        <div className="p-4 sm:p-8 overflow-y-auto">
           {activeGame === 'memory-match' && (
             <Suspense fallback={<div className="text-white/60 text-center py-10">Loading…</div>}>
               <MemoryMatch onExit={() => setActiveGame(null)} />

@@ -176,8 +176,8 @@ export default function Contact() {
                 </div>
 
                 {/* Terminal Body */}
-                <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm min-h-[240px] sm:min-h-[280px]">
-                  <pre className="text-green-400 whitespace-pre-wrap leading-relaxed">
+                <div className="p-3 sm:p-6 font-mono text-[11px] sm:text-sm min-h-[220px] sm:min-h-[280px]">
+                  <pre className="text-green-400 whitespace-pre-wrap break-words leading-relaxed">
                     {terminalText}
                     <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>
                       ▊
@@ -186,7 +186,7 @@ export default function Contact() {
                 </div>
 
                 {/* Terminal Footer */}
-                <div className="px-4 sm:px-6 py-4 bg-white/5 border-t border-white/10">
+                <div className="px-3 sm:px-6 py-3 sm:py-4 bg-white/5 border-t border-white/10">
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button
                       onClick={handleSendEmail}
@@ -239,10 +239,10 @@ export default function Contact() {
           </div>
 
           {/* Side Panel - Takes 2 columns */}
-          <div className="lg:col-span-2 flex flex-col gap-8">
-            
+          <div className="lg:col-span-2 flex flex-col gap-6 sm:gap-8">
+
             {/* Quick Info Card */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-colors">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 sm:p-8 hover:border-white/20 transition-colors">
               <h3 className="text-white font-semibold mb-4 flex items-center gap-2 text-lg">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 Currently Available
@@ -263,9 +263,9 @@ export default function Contact() {
             </div>
 
             {/* Social Links */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 flex-1">
-              <h3 className="text-white font-semibold mb-6 text-lg">Connect Online</h3>
-              <div className="space-y-4">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 sm:p-8 flex-1">
+              <h3 className="text-white font-semibold mb-4 sm:mb-6 text-lg">Connect Online</h3>
+              <div className="space-y-3 sm:space-y-4">
                 {socialLinks.map((social) => {
                   return (
                     <a
